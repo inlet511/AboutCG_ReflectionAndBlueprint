@@ -1,4 +1,4 @@
-// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+﻿// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
 
 #include "GraphBP.h"
 #include "GraphBPStyle.h"
@@ -66,10 +66,22 @@ void FGraphBPModule::ShutdownModule()
 
 TSharedRef<SDockTab> FGraphBPModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
 {
+	
+	if (GraphObject != nullptr)
+	{
+		GraphObject = nullptr;
+	}
 
+	//创建一个GraphEditor类
 	GraphObject = NewObject<UEdGraph>();
+
+	//设定GraphEditor的Schema
 	GraphObject->Schema = UTestGraphSchema::StaticClass();
+
+	//防止被自动回收
 	GraphObject->AddToRoot();
+
+	//创建GraphEditor的Slate类，并设置它要编辑的GraphEditor类
 	GraphEditorSlate = SNew(SGraphEditor)
 		.GraphToEdit(GraphObject);
 

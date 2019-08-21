@@ -1,4 +1,4 @@
-// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+﻿// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -28,6 +28,10 @@ private:
 
 private:
 	TSharedPtr<class FUICommandList> PluginCommands;
+
+	//Graph编辑器类
 	class UEdGraph* GraphObject;
+
+	//GraphEditor的Slate类
 	TSharedPtr<class SGraphEditor> GraphEditorSlate;
 };

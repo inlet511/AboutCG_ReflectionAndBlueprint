@@ -1,5 +1,9 @@
 #include "TestGraphSchema.h"
 #include "TestNode_HelloWorld.h"
+#include "ScopedTransaction.h"
+#include "EdGraph/EdGraph.h"
+#include "Framework/MultiBox/MultiBoxBuilder.h"
+#include "Widgets/Images/SImage.h"
 
 #define LOCTEXT_NAMESPACE "TestGraphSchema"
 
@@ -46,5 +50,25 @@ void UTestGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder& ContextM
 			0));
 	NewNodeAction->NodeHelloWorld = NewObject<UTestNode_HelloWorld>(ContextMenuBuilder.OwnerOfTemporaries);
 	ContextMenuBuilder.AddAction(NewNodeAction);
+}
+
+void UTestGraphSchema::GetContextMenuActions(const UEdGraph* CurrentGraph, const UEdGraphNode* InGraphNode, const UEdGraphPin* InGraphPin, class FMenuBuilder* MenuBuilder, bool bIsDebugging) const
+{
+	MenuBuilder->BeginSection(TEXT("Hall"));
+	{
+
+		MenuBuilder->AddWidget(
+			SNew(SImage),
+			LOCTEXT("ImageTest","Just Image Test")
+		);
+
+		MenuBuilder->AddEditableText(
+			LOCTEXT("A", "Just a Hello"),
+			LOCTEXT("B", "BBB"),
+			FSlateIcon(),
+			LOCTEXT("TTT", "just a TTT")			
+		);
+	}
+	MenuBuilder->EndSection();
 }
 
