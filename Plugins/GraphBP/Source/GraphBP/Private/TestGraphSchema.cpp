@@ -4,6 +4,7 @@
 #include "EdGraph/EdGraph.h"
 #include "Framework/MultiBox/MultiBoxBuilder.h"
 #include "Widgets/Images/SImage.h"
+#include "MyConnectionDrawingPolicy.h"
 
 #define LOCTEXT_NAMESPACE "TestGraphSchema"
 
@@ -70,5 +71,10 @@ void UTestGraphSchema::GetContextMenuActions(const UEdGraph* CurrentGraph, const
 		);
 	}
 	MenuBuilder->EndSection();
+}
+
+class FConnectionDrawingPolicy* UTestGraphSchema::CreateConnectionDrawingPolicy(int32 InBackLayerID, int32 InFrontLayerID, float InZoomFactor, const FSlateRect& InClippingRect, class FSlateWindowElementList& InDrawElements, class UEdGraph* InGraphObj) const
+{
+	return new FMyConnectionDrawingPolicy(InBackLayerID, InFrontLayerID, InZoomFactor, InClippingRect, InDrawElements, InGraphObj);
 }
 

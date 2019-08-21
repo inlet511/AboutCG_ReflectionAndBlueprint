@@ -42,6 +42,7 @@ public class GraphBP : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+                "GraphEditor"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
