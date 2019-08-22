@@ -1,4 +1,5 @@
 #include "MyConnectionDrawingPolicy.h"
+#include "Rendering/DrawElements.h"
 
 FMyConnectionDrawingPolicy::FMyConnectionDrawingPolicy(int32 InBackLayerID, int32 InFrontLayerID, float InZoomFactor, const FSlateRect& InClippingRect, class FSlateWindowElementList& InDrawElements, class UEdGraph* InGraphObj)
 	:FConnectionDrawingPolicy(InBackLayerID,InFrontLayerID,InZoomFactor,InClippingRect,InDrawElements)
@@ -17,5 +18,21 @@ void FMyConnectionDrawingPolicy::DetermineWiringStyle(UEdGraphPin* OutputPin, UE
 	{
 		ApplyHoverDeemphasis(OutputPin, InputPin, Params.WireThickness, Params.WireColor);
 	}
+}
+
+void FMyConnectionDrawingPolicy::DrawConnection(int32 LayerId, const FVector2D& Start, const FVector2D& End, const FConnectionParams& Params)
+{
+	const FVector2D Delta = End - Start;
+	const FVector2D DirDelta = Delta.GetSafeNormal();
+
+	FSlateDrawElement::MakeDrawSpaceSpline(
+		DrawElementsList,
+		LayerId,
+		Start,DirDelta,
+		End,DirDelta,
+		Params.WireThickness,
+		ESlateDrawEffect::None,
+		Params.WireColor
+	);
 }
 

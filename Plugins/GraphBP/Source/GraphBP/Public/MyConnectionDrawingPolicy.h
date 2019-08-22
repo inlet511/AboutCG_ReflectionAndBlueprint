@@ -17,6 +17,9 @@ public:
 
 	virtual void DetermineWiringStyle(UEdGraphPin* OutputPin, UEdGraphPin* InputPin, FConnectionParams& Params) override;
 
+	virtual void DrawConnection(int32 LayerId, const FVector2D& Start, const FVector2D& End, const FConnectionParams& Params) override;
+
+
 protected:
 	//在哪个Graph中建立连线
 	UEdGraph* EdGraphObj;
